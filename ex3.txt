@@ -1,0 +1,53 @@
+Part A:
+    cd ~ 
+    mkdir ex3
+    cd ex3
+    mkdir dir1 dir2
+    touch HelloWorld.txt 
+    cp HelloWorld.txt dir1/
+    cp -i HelloWorld.txt dir1/
+    mv HelloWorld.txt Hi.txt
+    mv Hi.txt dir2/
+Part B:
+  	ln dir2/Hi.txt Hi-hard
+    ln dir2/Hi.txt dir1/Hi-hard
+    ln dir2/Hi.txt dir2/Hi-hard
+    ln -s dir2/Hi.txt Hi-sym
+    rm Hi-hard
+    rm dir2/Hi.txt 
+    ls -li
+      total 0
+      12966274883 lrwxr-xr-x  1 duong  staff   11 Sep 10 21:34 Hi-sym -> dir2/Hi.txt
+      12966274498 drwxr-xr-x  4 duong  staff  128 Sep 10 21:34 dir1
+      12966274493 drwxr-xr-x  3 duong  staff   96 Sep 10 21:34 dir2
+
+	
+Part C:
+  	ls /bin /usr/bin | sort | uniq | wc -l
+  	ls /bin /usr/bin | sort | uniq | grep "zip"
+  	seq 1 35 > mytext.txt
+  	head -n 5 mytext.txt
+  	tail -n 5 mytext.txt
+  	wc mytext.txt
+  	ls -l | tee full_listing.txt
+Part D:
+	  mkdir permissions
+    cd permissions
+    touch secret.txt shared.txt public.txt
+    chmod 600 secret.txt
+    chmod 664 shared.txt
+    chmod 777 public.txt
+    umask
+	    022
+    touch testfile.txt
+    ls -l testfile.txt
+    	-rw-r--r--  1 duong  staff  0 Sep 10 21:45 testfile.txt
+
+Giải thích lí do tại sao file testfile.txt lại có quyền như trên:
+  	Khi tạo 1 file mới, hệ điều hành tự động cấp cho file đó quyền tối đa là 666, 
+  	sau đó đưa mức quyền đó qua bộ lọc umask bằng cách trừ đi cho 022.
+  	Ta có phép tính:
+  		Quyền mặc định(666) - Giá trị umask(022) = Quyền thực tế(644)
+  
+  	Quyền 644 chính là -rw-r--r- mà ta đã thấy khi chạy câu lệnh “ls -l testfile.txt”
+
